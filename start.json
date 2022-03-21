@@ -1,0 +1,81 @@
+[
+  {
+    "pages": [
+      "השאלות וההוראות לניסוי מנוסחות בלשון נקבה, אך מתייחסות לשני המינים."
+    ],
+    "show_clickable_nav": true,
+    "type": "instructions",
+    "direction": "rtl",
+    "block": 0.0,
+    "sub_block": 0.0,
+    "name": "gender_intro"
+  },
+  {
+    "questions": [
+      {
+        "options": ["גבר", "אישה", "אחר"],
+        "prompt": "כיצד את מגדירה עצמך?",
+        "required": true
+      },
+      {
+        "options": ["ימין", "שמאל", "אחר"],
+        "prompt": "מהי היד הדומיננטית שלך?",
+        "required": true
+      },
+      {
+        "options": ["עברית", "ערבית", "אנגלית", "אחר"],
+        "prompt": "מהי שפת האם שלך?",
+        "required": true
+      }
+    ],
+    "type": "survey-multi-choice",
+    "direction": "rtl",
+    "block": 0.0,
+    "sub_block": 0.0,
+    "name": "question_start_1"
+  },
+  {
+    "questions": [
+      {
+        "rows": 1.0,
+        "columns": 2.0,
+        "value": "",
+        "prompt": "מהו גילך?",
+        "required": true
+      }
+    ],
+    "type": "survey-text",
+    "direction": "rtl",
+    "block": 0.0,
+    "sub_block": 0.0,
+    "name": "age_q"
+  },
+  {
+    "questions": [
+      {
+        "options": ["כן", "לא"],
+        "prompt": "האם אובחנת בעבר כלוקה בהפרעת קשב?",
+        "required": true
+      }
+    ],
+    "type": "survey-multi-choice",
+    "direction": "rtl",
+    "block": 0.0,
+    "sub_block": 0.0,
+    "name": "attention_1"
+  },
+  {
+    "questions": [
+      {
+        "labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "prompt": "במידה ולא, מ-1 עד 9 עד כמה את חשה שיש לך הפרעת קשב?",
+        "required": true
+      }
+    ],
+    "type": "survey-likert",
+    "direction": "rtl",
+    "block": 0.0,
+    "sub_block": 0.0,
+    "name": "attention_2"
+  }
+]

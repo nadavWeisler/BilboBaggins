@@ -1,0 +1,602 @@
+<html style="background: #C0C0C0;">
+<head>
+    <title>Psychology Study</title>
+    <meta charset="utf-8">
+    <script src="libs/jquery-min.js" type="text/javascript"></script>
+    <script src="libs/underscore-min.js" type="text/javascript"></script>
+    <script src="rms.js" type="text/javascript"></script>
+    <script src="jspsych.js" type="text/javascript"></script>
+    <script src="jspsych-brms.js" type="text/javascript"></script>
+    <script src="plugins/jspsych-image-keyboard-response.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/jspsych.css" type="text/css"></link>
+    <script>
+        let full_timeline = [];
+
+        const start = [
+            {
+                "pages": [
+                "השאלות וההוראות לניסוי מנוסחות בלשון נקבה, אך מתייחסות לשני המינים."
+                ],
+                "show_clickable_nav": true,
+                "type": "instructions",
+                "direction": "rtl",
+                "block": 0.0,
+                "sub_block": 0.0,
+                "name": "gender_intro"
+            },
+            {
+                "questions": [
+                {
+                    "options": ["גבר", "אישה", "אחר"],
+                    "prompt": "כיצד את מגדירה עצמך?",
+                    "required": true
+                },
+                {
+                    "options": ["ימין", "שמאל", "אחר"],
+                    "prompt": "מהי היד הדומיננטית שלך?",
+                    "required": true
+                },
+                {
+                    "options": ["עברית", "ערבית", "אנגלית", "אחר"],
+                    "prompt": "מהי שפת האם שלך?",
+                    "required": true
+                }
+                ],
+                "type": "survey-multi-choice",
+                "direction": "rtl",
+                "block": 0.0,
+                "sub_block": 0.0,
+                "name": "question_start_1"
+            },
+            {
+                "questions": [
+                {
+                    "rows": 1.0,
+                    "columns": 2.0,
+                    "value": "",
+                    "prompt": "מהו גילך?",
+                    "required": true
+                }
+                ],
+                "type": "survey-text",
+                "direction": "rtl",
+                "block": 0.0,
+                "sub_block": 0.0,
+                "name": "age_q"
+            },
+            {
+                "questions": [
+                {
+                    "options": ["כן", "לא"],
+                    "prompt": "האם אובחנת בעבר כלוקה בהפרעת קשב?",
+                    "required": true
+                }
+                ],
+                "type": "survey-multi-choice",
+                "direction": "rtl",
+                "block": 0.0,
+                "sub_block": 0.0,
+                "name": "attention_1"
+            },
+            {
+                "questions": [
+                {
+                    "labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                    "prompt": "במידה ולא, מ-1 עד 9 עד כמה את חשה שיש לך הפרעת קשב?",
+                    "required": true
+                }
+                ],
+                "type": "survey-likert",
+                "direction": "rtl",
+                "block": 0.0,
+                "sub_block": 0.0,
+                "name": "attention_2"
+            }
+        ];
+
+        start.forEach(function(element) {
+            full_timeline.push(element);
+        });
+
+        const asrs = [{
+         "pages":[
+            "עבור כל אחד מהמצבים המתוארים בהיגדים הבאים, אנא סמני עד כמה זה מאפיין אותך<br>השתמשי בסולם הדירוג שלפניך הנע בין לעתים רחוקות מאוד לבין לעיתים תכופות מאד"
+         ],
+         "show_clickable_nav":true,
+         "type":"instructions",
+         "direction":"rtl",
+         "block":1.0,
+         "sub_block":0.0,
+         "name":"intro"
+      },
+      {
+         "questions":[
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מתקשה להשלים את הפרטים של פרויקט, מהרגע בו החלקים המאתגרים הסתיימו?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מתקשה ליצור סדר בדברים, כאשר את מבצעת משימה המצריכה ארגון?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את/ה מתקשה בזכירת פגישות או התחייבויות?",
+               "required":true
+            }
+         ],
+         "type":"survey-likert",
+         "direction":"rtl",
+         "block":1.0,
+         "sub_block":0.0,
+         "name":"ASRS_1"
+      },
+      {
+         "questions":[
+			{
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"כאשר מוטלת עלייך משימה המצריכה חשיבה מרובה, באיזו תכיפות את נמנעת או דוחה את התחלתה?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מתפתלת או מניעה בקוצר רוח את ידייך או רגלייך, כאשר עלייך לשבת במקום למשך זמן ארוך?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מרגישה פעילה יתר על המידה או מרגישה צורך לעשות דברים, כאילו את פועלת על ידי מנוע?",
+               "required":true
+            }
+         ],
+         "type":"survey-likert",
+         "direction":"rtl",
+         "block":1.0,
+         "sub_block":0.0,
+         "name":"ASRS_2"
+      },
+      {
+         "questions":[
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מבצעת שגיאות הנובעות מרשלנות, כאשר עלייך לעבוד על פרויקט משעמם או קשה?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מתקשה בשמירה על ריכוז, כאשר את מבצעת עבודה משעממת או עבודה החוזרת על עצמה?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מתקשה להתרכז במה שאנשים אומרים לך, אפילו כאשר הם מדברים אלייך באופן ישיר?",
+               "required":true
+            }
+         ],
+         "type":"survey-likert",
+         "direction":"rtl",
+         "block":1.0,
+         "sub_block":0.0,
+         "name":"ASRS_3"
+      },
+      {
+         "questions":[
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מאבדת חפצים או מתקשה במציאתם, בעבודה או בבית?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות דעתך מוסחת על ידי פעילות או רעש בסביבתך?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את קמה ממושבך במהלך פגישה או בכל סיטואציה אחרת, בה מצופה ממך להישאר במקומך?",
+               "required":true
+            }
+         ],
+         "type":"survey-likert",
+         "direction":"rtl",
+         "block":1.0,
+         "sub_block":0.0,
+         "name":"ASRS_4"
+      },
+      {
+         "questions":[
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מרגישה חסרת-מנוחה או קצרת רוח?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מתקשה להירגע ולהשתחרר כאשר יש לך זמן לעצמך?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מוצאת את עצמך מדברת יותר מידי כאשר את בסיטואציה חברתית?",
+               "required":true
+            }
+         ],
+         "type":"survey-likert",
+         "direction":"rtl",
+         "block":1.0,
+         "sub_block":0.0,
+         "name":"ASRS_5"
+      },
+      {
+         "questions":[
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"כאשר את במהלך שיחה, באיזו תכיפות את מוצאת את עצמך מסיימת משפטים של האנשים עימם את מדברת, לפני שהם מסיימים אותם בעצמם?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מתקשה לחכות לתורך בסיטואציות בהן את נדרשת לכך?",
+               "required":true
+            },
+            {
+               "labels":[
+                  "לעתים רחוקות מאוד",
+                  "לעיתים רחוקות",
+                  "באופן ממוצע",
+                  "לעתים קרובות",
+                  "לעתים קרובות מאוד"
+               ],
+               "prompt":"באיזו תכיפות את מפריעה לאחרים כאשר הם עסוקים?",
+               "required":true
+            }
+         ],
+         "type":"survey-likert",
+         "direction":"rtl",
+         "block":1.0,
+         "sub_block":0.0,
+         "name":"ASRS_6"
+      }
+    ]
+
+        const rms_intro = [
+            {
+                "pages":[
+                    "בניסוי זה יוצגו ריבועים צבעוניים מרצדים, ומדי פעם יופיעו עליהם גירויים שונים. מטרתך היא לזהות היכן מופיע גירוי – האם מימין או משמאל לנקודה בה את מתמקדת במסך.",
+                    "קצב הופעת הגירויים בניסוי מאוד משתנה. לפעמים הגירויים יופיעו במהירות בזה אחר זה, ולפעמים ייקח להם זמן. ",
+                    "חשוב לנו מאוד לדעת מתי בדיוק התחילו להופיע הגירויים. לכן נבקש ממך למקד את המבט בצלב שבמרכז המסך, וללחוץ על מקש התשובה ברגע שאת יודעת את התשובה. אנא היי הכי מדוייקת והכי מהירה שאת יכולה להיות. ",
+                    "אם ראית גירוי משמאל מרכז המסך, יש ללחוץ על המקש Q אם ראית גירוי מימין למרכז המסך, יש ללחוץ על המקש P.",
+                    "כעת נעשה אימון קצר למטלה כדי לוודא שההוראות מובנות, במידה וישנן שאלות את מוזמנת לפנות לנסיין"
+                ],
+                "show_clickable_nav":true,
+                "type":"instructions",
+                "direction":"rtl",
+                "block":2.0,
+                "sub_block":0.0,
+                "name":"rms_intro"
+            }       
+        ];
+        
+        const baseFileName = "images/f42887_e_";
+        let imagesNumbers = ["001", "005", "015", "025", "028", "053", "058", "064", "072", "080", "098", "103", "121", "127", "140", "156",
+         "161", "180", "202", "241", "245", "252", "258", "259", "278", "289", "293", "295", "296", "297", "298", 
+         "001_1", "005_1", "015_1", "025_1", "028_1", "053_1", "058_1", "064_1", "072_1", "080_1", "098_1", "103_1", "121_1", "127_1", "140_1", "156_1",
+         "161_1", "180_1", "202_1", "241_1", "245_1", "252_1", "258_1", "259_1", "278_1", "289_1", "293_1", "295_1", "296_1", "297_1", "298_1"];
+        const fileExtension = ".jpg";
+
+        function shuffle(array) {
+            let currentIndex = array.length,  randomIndex;
+
+            // While there remain elements to shuffle...
+            while (currentIndex != 0) {
+                // Pick a remaining element...
+                let randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                // And swap it with the current element.
+                [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+
+            return array;
+        }
+        
+        rms_trials = []
+
+        shuffle(imagesNumbers).forEach(element => {
+            rms_trials.push({
+                type: "bRMS",
+                stimulus: baseFileName + element + fileExtension,
+                choices: ["q", "p"],
+                response_ends_trial: true,
+                post_trial_gap: 400,
+                stimulus_opacity: 0.3,
+            });
+        });
+
+        const end = [
+            {
+               "questions":[
+                    {
+                        "labels":[
+                            "1",
+                            "2",
+                            "3",
+                            "4",
+                            "5"
+                        ],
+                        "prompt":"מ-1 עד-5, עד כמה הייתה ברורה לך המטלה עם הריבועים המרצדים?",
+                        "required":true
+                        }
+                    ],
+                "type":"survey-likert",
+                "direction":"rtl",
+                "block":0.0,
+                "sub_block":0.0,
+                "name":"LAST_1"
+            },
+            {
+                "questions":[
+                    {
+                        "options":[
+                            "כן",
+                            "לא"
+                        ],
+                        "prompt":"האם הייתה לך איזושהי אסטרטגיה?",
+                        "required":true
+                        }
+                    ],
+                "type":"survey-multi-choice",
+                "direction":"rtl",
+                "block":0.0,
+                "sub_block":0.0,
+                "name":"LAST_2"
+            },
+            {
+                "questions":[
+                    {
+                        "rows":7.0,
+                        "columns":7.0,
+                        "value":"",
+                        "prompt":"אם כן, מהי?",
+                        "required":true
+                    }
+                ],
+                "type":"survey-text",
+                "block":0.0,
+                "sub_block":0.0,
+                "name":"LAST_3"
+            },
+            {
+                "questions":[
+                    {
+                    "labels":[
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                    ],
+                    "prompt":"מ-1 עד-5, עד כמה הייתה ברורה לך המטלה בה היית צריכה להקיש למראה ריבוע אדום?",
+                        "required":true
+                    }
+                ],
+                "type":"survey-likert",
+                "direction":"rtl",
+                "block":0.0,
+                "sub_block":0.0,
+                "name":"LAST_4"
+            },
+            {
+                "questions":[
+                    {
+                        "options":[
+                            "כן",
+                            "לא"
+                        ],
+                        "prompt":"האם הייתה לך איזושהי אסטרטגיה?",
+                        "required":true
+                        }
+                    ],
+                "type":"survey-multi-choice",
+                "direction":"rtl",
+                "block":0.0,
+                "sub_block":0.0,
+                "name":"LAST_5"
+                },
+                {
+                    "questions":[
+                        {
+                           "rows":7.0,
+                            "columns":7.0,
+                            "value":"",
+                            "prompt":"אם כן, מהי?",
+                            "required":true
+                        }
+                    ],
+                    "type":"survey-text",
+                    "block":0.0,
+                    "sub_block":0.0,
+                    "name":"LAST_6"
+                },
+                {
+                    "questions":[
+                        {
+                          "labels":[
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5",
+                                "6",
+                                "7"
+                            ],
+                            "prompt":"בהשוואה לנהגת הממוצעת, כיצד היית מגדירה את הנהיגה שלך? כך ש-1 אומר הרבה מתחת לממוצע ו-7 אומר הרבה מעבר לממוצע?",
+                            "required":false
+                        }
+                    ],
+                    "type":"survey-likert",
+                    "direction":"rtl",
+                    "block":0.0,
+                    "sub_block":0.0,
+                    "name":"DRIVE_1"
+                },
+                {
+                    "questions":[
+                        {
+                           "rows":2.0,
+                            "columns":1.0,
+                            "value":"",
+                            "prompt":"להערכתך, בכמה תאונות דרכים היית מעורבת <bold> כנהגת </bold> במהלך שלושת השנים האחרונות כולל תאונות קטנות וללא נזק",
+                            "required":false
+                        }
+                    ],
+                    "type":"survey-text",
+                    "block":0.0,
+                    "sub_block":0.0,
+                    "name":"DRIVE_2"
+                },
+                {
+                    "questions":[
+                        {
+                            "rows":2.0,
+                            "columns":1.0,
+                            "value":"",
+                            "prompt":"להערכתך, בכמה תאונות דרכים היית מעורבת <bold> כהולכת רגל </bold> במהלך שלושת השנים האחרונות כולל תאונות קטנות וללא נזק",
+                            "required":true
+                        }
+                    ],
+                    "type":"survey-text",
+                    "block":0.0,
+                    "sub_block":0.0,
+                    "name":"DRIVE_2"
+                }
+            ];
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+          
+            element.style.display = 'none';
+            document.body.appendChild(element);
+          
+            element.click();
+          
+            document.body.removeChild(element);
+          }
+
+        jsPsych.init({
+            timeline: full_timeline,
+            fullscreen: true,
+            on_finish: function () {
+                download("data.csv", jsPsych.data.get().csv());
+            }
+        });
+    </script>
+
+</head>
+</head>
