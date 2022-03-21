@@ -12,15 +12,20 @@
 .jspsych-display-element {
     display: flex;
     flex-direction: column;
-    /*justify-content: center;
-    align-items: center;*/
-    /*height: 100%;
-    width: 100%;*/
-    /*overflow-y: scroll;*/
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
 }
 
 .jspsych-display-element:focus {
     outline: none;
+}
+
+.cpt-image {
+    width: 75.6px;
+    height: 75.6px;
 }
 
 .jspsych-content-wrapper {
