@@ -9,14 +9,14 @@
  **/
 
 
-jsPsych.plugins["image-cpt"] = (function () {
+jsPsych.plugins["moxo"] = (function () {
 
   var plugin = {};
 
   jsPsych.pluginAPI.registerPreload('image-keyboard-response', 'stimulus', 'image');
 
   plugin.info = {
-    name: 'image-cpt',
+    name: 'moxo',
     description: '',
     parameters: {
       stimulus: {
@@ -87,13 +87,59 @@ jsPsych.plugins["image-cpt"] = (function () {
         type: jsPsych.plugins.parameterType.KEYCODE,
         pretty_name: 'Image height',
         default: "75.6"
-      }
+      },
+      visualDistractor: {
+        type: jsPsych.plugins.parameterType.KEYCODE,
+        pretty_name: 'visualDistractor',
+        default: undefined,
+        description: 'The distractor image to be displayed'
+      },
+      audioDistractor: {
+        type: jsPsych.plugins.parameterType.KEYCODE,
+        pretty_name: 'audioDistractor',
+        default: undefined,
+        description: 'The distractor image to be displayed'
+      },
+      showDistractorAudio: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Show distractor audio',
+        default: false
+      },
+      showDistractorVisual: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Show distractor visual',
+        default: false
+      },
+      firstMoxo: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'First moxo',
+        default: false
+      },
+      lastMoxo: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Last moxo',
+        default: false
+      },
     }
   }
 
   plugin.trial = function (display_element, trial) {
+    // let resetHtml = display_element.innerHTML;
+    if (trial.firstMoxo) {
+      var new_html = '';
+      if (trial.showDistractorVisual) {
+        new_html = '<video width="400" height="400" autoplay loop muted=' + !trial.showDistractorAudio + 'preload="auto">' +
+          '<source src="' + trial.visualDistractor + '" type="video/mp4">' +
+          '</video>'
+      } else if (trial.showDistractorAudio) {
+        new_html = '<audio autoplay loop preload="auto">' +
+          '<source src="' + trial.audioDistractor + '" type="audio/mpeg">' +
+          '</audio>'
+      }
+      resetHtml = new_html;
+    } 
 
-    var new_html = '<img class="cpt-image" src="' + trial.stimulus + '" id="jspsych-image-keyboard-response-stimulus"></img>';
+    new_html += '<img class="cpt-image" src="' + trial.stimulus + '" id="jspsych-image-keyboard-response-stimulus"></img>';
 
     // add prompt
     if (trial.prompt !== null) {
@@ -139,9 +185,12 @@ jsPsych.plugins["image-cpt"] = (function () {
             "key_press": response.key,
             "is_stimulus": trial.is_stimulus
           };
-
+          if (trial.lastMoxo) {
+            display_element.innerHTML = '';
+          } else {
+            display_element.innerHTML = resetHtml;
+          }
           // clear the display
-          display_element.innerHTML = '';
 
           // move on to the next trial
           jsPsych.finishTrial(trial_data);
