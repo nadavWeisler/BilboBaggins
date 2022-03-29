@@ -407,6 +407,7 @@ jsPsych.plugins["bRMS"] = (function () {
     plugin.trial = function (display_element, trial) {
         // Clear previous
         display_element.innerHTML = '';
+        display_element.style.direction = "";
         setTimeout(function () {
             // Start timing for within trial ITI
             let startCompute = Date.now();

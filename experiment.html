@@ -48,7 +48,7 @@
     
         function getSurveyTrials(survey_type, survey_name, questions, survey_direction, labels) {
             let survey_trials = [];
-            for (let i = 0; i < survey_questions.length; i+=3) {
+            for (let i = 0; i < questions.length; i+=3) {
                 survey_trials.push({
                     "questions": [
                         {
@@ -84,8 +84,6 @@
                 "show_clickable_nav": true,
                 "type": "instructions",
                 "direction": "rtl",
-                "block": 0.0,
-                "sub_block": 0.0,
                 "name": "gender_instructions"
             },
             {
@@ -108,8 +106,6 @@
                 ],
                 "type": "survey-multi-choice",
                 "direction": "rtl",
-                "block": 0.0,
-                "sub_block": 0.0,
                 "name": "question_start_1"
             },
             {
@@ -124,8 +120,6 @@
                 ],
                 "type": "survey-text",
                 "direction": "rtl",
-                "block": 0.0,
-                "sub_block": 0.0,
                 "name": "age_q"
             },
             {
@@ -138,8 +132,6 @@
                 ],
                 "type": "survey-multi-choice",
                 "direction": "rtl",
-                "block": 0.0,
-                "sub_block": 0.0,
                 "name": "attention_1"
             },
             {
@@ -152,8 +144,6 @@
                 ],
                 "type": "survey-likert",
                 "direction": "rtl",
-                "block": 0.0,
-                "sub_block": 0.0,
                 "name": "attention_2"
             }
         ];
@@ -217,36 +207,35 @@
         // Create barrat scale array
         function createBarratScale() {
             const barrattQuestions = [
-                "I plan tasks carefully.",
-                "I do things without thinking",
-                "I make-up my mind quickly.",
-                "I am happy-go-lucky.",
-                "I have ‘‘racing” thoughts.",
-                "I have ‘‘racing” thoughts",
-                "I plan trips well ahead of time",
-                "I am self controlled",
-                "I concentrate easily",
-                "I save regularly.",
-                "I ‘‘squirm” at plays or lectures.",
-                "I am a careful thinker.",
-                "I plan for job security.",
-                "I say things without thinking.",
-                "I like to think about complex problems.",
-                "I change jobs.",
-                "I act ‘‘on impulse.”",
-                "I get easily bored when solving thought problems.",
-                "I act on the spur of the moment.",
-                "I am a steady thinker.",
-                "I change residences.",
-                "I buy things on impulse.",
-                "I can only think about one thing at a time.",
-                "I change hobbies.",
-                "I spend or charge more than I earn.",
-                "I often have extraneous thoughts when thinking.",
-                "I am more interested in the present than the future.",
-                "I am restless at the theater or lectures.",
-                "I like puzzles.",
-                "I am future oriented"
+                "אני מתכננת משימות בקפידה.",
+                "אני עושה דברים בלי לחשוב.",
+                "אני מחליטה מהר.",
+                "אני ברת מזל.",
+                "המחשבות שלי מתרוצצות.",
+                "אני מתכננת טיולים הרבה לפני הזמן.",
+                "אני בשליטה עצמית.",
+                "אני מתרכזת בקלות",
+                "אני חוסכת כסף באופן קבוע",
+                "אני 'מתפתלת' בהצגות או הרצאות.",
+                "המחשבות שלי זהירות",
+                "אני פועלת לביטחון תעסוקתי",
+                "אני אומרת דברים בלי לחשוב.",
+                "אני אוהבת לחשוב על בעיות מורכבות.",
+                "אני נוהגת להחליף עבודות.",
+                "אני פועלת על סמך דחפים.",
+                "אני משתעממת בקלות בעת פתירת בעיות מורכבות",
+                "אני חיה את הרגע.",
+                "המחשבות שלי יציבות",
+                "אני עוברת דירה לעיתים קרובות",
+                "אני קונה דברים בלהט הרגע.",
+                "אני יכולה לחשוב רק על דבר אחד בכל רגע.",
+                "אני מחליפה תחביבים.",
+                "אני מוציאה כסף יותר מההכנסות שלי",
+                "כאשר אני חושבת על משהו, פורצות לי מחשבות חיצוניות",
+                "ההווה מעסיק אותי יותר מאשר העתיד",
+                "אני חסרת מנוחה בהצגות או הרצאות.",
+                "אני אוהבת פאזלים.",
+                "המחשבה שלי מכוונת לעתיד."
             ]
         
             const barrattLabels = [
@@ -288,7 +277,7 @@
         // Create RMS trials
         function getRmsTrials(baseFileName, images, fileExtention, choices) {
             rms_trials = []
-            shuffle(imagesNumbers).forEach(element => {
+            shuffle(images).forEach(element => {
                 rms_trials.push({
                     type: "bRMS",
                     stimulus: baseFileName + element + fileExtension,
@@ -311,8 +300,6 @@
             "show_clickable_nav":true,
             "type":"instructions",
             "direction":"rtl",
-            "block":3.0,
-            "sub_block":0.0,
             "name":"cpt_instructions_1"
         }
 
@@ -324,8 +311,6 @@
             "show_clickable_nav":true,
             "type":"instructions",
             "direction":"rtl",
-            "block":3.0,
-            "sub_block":0.0,
             "name":"instructions_2"
         }
 
@@ -346,8 +331,6 @@
                 "show_clickable_nav":true,
                 "type":"instructions",
                 "direction":"rtl",
-                "block":3.0,
-                "sub_block":0.0,
                 "name":"instructions_2"
             }
 
@@ -456,8 +439,6 @@
                     ],
                 "type":"survey-likert",
                 "direction":"rtl",
-                "block":0.0,
-                "sub_block":0.0,
                 "name":"LAST_1"
             },
             {
@@ -473,8 +454,6 @@
                     ],
                 "type":"survey-multi-choice",
                 "direction":"rtl",
-                "block":0.0,
-                "sub_block":0.0,
                 "name":"LAST_2"
             },
             {
@@ -488,8 +467,6 @@
                     }
                 ],
                 "type":"survey-text",
-                "block":0.0,
-                "sub_block":0.0,
                 "name":"LAST_3"
             },
             {
@@ -508,8 +485,6 @@
                 ],
                 "type":"survey-likert",
                 "direction":"rtl",
-                "block":0.0,
-                "sub_block":0.0,
                 "name":"LAST_4"
             },
             {
@@ -525,8 +500,6 @@
                     ],
                 "type":"survey-multi-choice",
                 "direction":"rtl",
-                "block":0.0,
-                "sub_block":0.0,
                 "name":"LAST_5"
                 },
                 {
@@ -540,8 +513,6 @@
                         }
                     ],
                     "type":"survey-text",
-                    "block":0.0,
-                    "sub_block":0.0,
                     "name":"LAST_6"
                 },
                 {
@@ -562,8 +533,6 @@
                     ],
                     "type":"survey-likert",
                     "direction":"rtl",
-                    "block":0.0,
-                    "sub_block":0.0,
                     "name":"DRIVE_1"
                 },
                 {
@@ -577,8 +546,6 @@
                         }
                     ],
                     "type":"survey-text",
-                    "block":0.0,
-                    "sub_block":0.0,
                     "name":"DRIVE_2"
                 },
                 {
@@ -592,10 +559,17 @@
                         }
                     ],
                     "type":"survey-text",
-                    "block":0.0,
-                    "sub_block":0.0,
-                    "name":"DRIVE_2"
-                }
+                    "name":"WALK"
+                },
+                {
+                "pages": [
+                "תודה שהשתתפת בניסוי, לחצי על המשך לסיום הניסוי."
+                ],
+                "show_clickable_nav": true,
+                "type": "instructions",
+                "direction": "rtl",
+                "name": "end_instructions"
+            }
             ];   
 
         // create CPT timeline
@@ -647,11 +621,28 @@
         // The final timeline for the experiment
         let experiment_timeline = []
         
+        // Add ASRS to timeline
+        asrsTimeline = []
+        asrsTimeline.push(asrs_instructions);
+        shuffle(createAsrsTrials()).forEach(function(trial) {
+            asrsTimeline.push(trial);
+        });
+
+        //Add Barratt to timeline
+        barrattTimeline = []
+        barrattTimeline.push(barratt_instructions);
+        shuffle(createBarratScale()).forEach(function(trial) {
+            barrattTimeline.push(trial);
+        });
+
         // Add start to timeline
         start.forEach(function(element) {
             experiment_timeline.push(element);
         });
-
+        
+        shuffle(getRmsTrials(baseFileName, imagesPractice, fileExtension, choices)).forEach(function(trial) {
+            experiment_timeline.push(trial);
+        });
         const mainParts = [cptTimeline, rmsTimeline, asrsTimeline, barrattTimeline];
         // Add main parts to timeline in random order
         shuffle(mainParts).forEach(function(part) {
@@ -661,12 +652,16 @@
         });
 
         // Add end to timeline
-        full_timeline.push(end);
-        // Init experiment
+        end.forEach(function(trial) {
+            experiment_timeline.push(trial);
+        });
+        
+        // Init experiment (and run it)
         jsPsych.init({
-            timeline: full_timeline,
+            timeline: experiment_timeline,
             fullscreen: true,
             on_finish: function () {
+                // Download subject data as .csv file
                 download("data.csv", jsPsych.data.get().csv());
             }
         });

@@ -400,6 +400,7 @@ jsPsych.plugins["bRMS"] = (function () {
     }
 
     plugin.trial = function (display_element, trial) {
+        console.log(display_element);
         // Clear previous
         display_element.innerHTML = '';
         display_element.style.direction = "";
@@ -410,7 +411,6 @@ jsPsych.plugins["bRMS"] = (function () {
 
                 // Hide mouse
                 let stylesheet = document.styleSheets[0];
-                stylesheet.insertRule("* {cursor: none;}", stylesheet.cssRules.length);
                 const div_length = document.getElementById("dpiDiv").clientHeight;
                 const rectangleWidth = trial.rectangle_width * div_length;
                 const rectangleHeight = trial.rectangle_height * div_length;
@@ -605,10 +605,6 @@ jsPsych.plugins["bRMS"] = (function () {
                         setTimeout(() => {
                             display_element.innerHTML = '';
                         }, 10 + trial.stimulus_after_press * 1000)
-
-                        // Return mouse
-                        stylesheet.deleteRule(stylesheet.cssRules.length - 1);
-
 
                         // move on to the next trial
                         setTimeout(function () {
