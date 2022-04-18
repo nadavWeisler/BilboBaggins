@@ -31,7 +31,7 @@
 
             return array;
         }
-
+        
         // Downlowd file function
         function download(filename, text) {
             let element = document.createElement('a');
@@ -46,6 +46,7 @@
             document.body.removeChild(element);
         }
     
+        // Create survey trials
         function getSurveyTrials(survey_type, survey_name, questions, survey_direction, labels) {
             let survey_trials = [];
             for (let i = 0; i < questions.length; i+=3) {
@@ -264,6 +265,7 @@
             "name":"rms_instructions"
         };
 
+        // Create RMS main trials instuctions
         const rms_main_instructions = {
             "pages":[
                 "כעת נתחיל את המטלה. נבקשך לשבת בנוחות ככל האפשר ולמקם את האצבעות על שני המקשים P-ו Q. כשאת מוכנה, הקישי המשך."
@@ -315,7 +317,7 @@
         }
 
         // Create CPT trials
-        function createCpt(cptCount, otherCount, trialCount) {
+        function createCpt(cptCount, otherCount, trialCount, ifValidate) {
             const cptGaps = [1000, 1500, 2000, 2500];
             const cptDuration = 100;
             const size = 1.8;
@@ -355,7 +357,7 @@
                     trial_duration: gaps.pop() + cptDuration,
                     stimulus_duration: cptDuration,
                     choices: [32],
-                    validate: true
+                    validate: ifValidate
                 });
             }
             
@@ -371,7 +373,7 @@
                         trial_duration: gaps.pop() + cptDuration,
                         stimulus_duration: cptDuration,
                         choices: [32],
-                        validate: true
+                        validate: ifValidate
                     });
                 });    
             }
@@ -388,7 +390,7 @@
                         trial_duration: gaps.pop() + cptDuration,
                         stimulus_duration: cptDuration,
                         choices: [32],
-                        validate: true
+                        validate: ifValidate
                     });
                 });    
             }
@@ -406,7 +408,7 @@
                         stimulus_duration: cptDuration,
                         response_ends_trial: false,
                         choices: [32],
-                        validate: true
+                        validate: ifValidate
                     });
                     count--;
                     if (count == 0) {
@@ -575,11 +577,11 @@
         // create CPT timeline
         let cptTimeline = []
         cptTimeline.push(cpt_instructions);
-        shuffle(createCpt(10, 6, 32)).forEach(function(trial) {
+        shuffle(createCpt(10, 6, 32, true)).forEach(function(trial) {
             cptTimeline.push(trial);
         });
         cptTimeline.push(cpt_main_instructions)
-        shuffle(createCpt(97, 56, 320)).forEach(function(trial) {
+        shuffle(createCpt(97, 56, 320, false)).forEach(function(trial) {
             cptTimeline.push(trial);
         });
         
@@ -628,7 +630,7 @@
             asrsTimeline.push(trial);
         });
 
-        //Add Barratt to timeline
+        // Add Barratt to timeline
         barrattTimeline = []
         barrattTimeline.push(barratt_instructions);
         shuffle(createBarratScale()).forEach(function(trial) {
@@ -640,9 +642,6 @@
             experiment_timeline.push(element);
         });
         
-        shuffle(getRmsTrials(baseFileName, imagesPractice, fileExtension, choices)).forEach(function(trial) {
-            experiment_timeline.push(trial);
-        });
         const mainParts = [cptTimeline, rmsTimeline, asrsTimeline, barrattTimeline];
         // Add main parts to timeline in random order
         shuffle(mainParts).forEach(function(part) {

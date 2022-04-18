@@ -121,7 +121,9 @@ jsPsych.plugins["image-cpt"] = (function () {
         display_element.querySelector("#jspsych-cpt-validation-incorrect").style.visibility = 'visible';
       }
       setTimeout(function () {
-        display_element.querySelector("#jspsych-cpt-validation-incorrect").style.visibility = 'hidden'
+        if (trial.validate) {
+          display_element.querySelector("#jspsych-cpt-validation-incorrect").style.visibility = 'hidden'
+        }
         setTimeout(function () {
 
           // kill any remaining setTimeout handlers
@@ -137,7 +139,7 @@ jsPsych.plugins["image-cpt"] = (function () {
             "rt": response.rt,
             // "stimulus": trial.stimulus,
             "key_press": response.key,
-            "is_stimulus": trial.is_stimulus
+            "is_stimulus": trial.isStimulus
           };
 
           // clear the display
