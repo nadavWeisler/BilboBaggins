@@ -1,6 +1,6 @@
 //Create New Canvas
 function CreateNewCanvas(_id, _className, _width, _height, _zIndex, _position,
-                         _border, _visibility, _opacity) {
+    _border, _visibility, _opacity) {
     let newCanvas = document.createElement('canvas');
     newCanvas.id = _id;
     newCanvas.className = _className;
@@ -16,7 +16,7 @@ function CreateNewCanvas(_id, _className, _width, _height, _zIndex, _position,
 
 //Draw Fixation On Fixation Canvas
 function CreateFixationContext(_id, _fillStyle, _frameWidth, _fixationWidth,
-                               _frameHeight, _fixationHeight, _fixation) {
+    _frameHeight, _fixationHeight, _fixation) {
 
     let fixCtx = _fixation.getContext(_id);
     fixCtx.fillStyle = _fillStyle;
@@ -34,12 +34,13 @@ function CreateFixationContext(_id, _fillStyle, _frameWidth, _fixationWidth,
 function GetRectanglesRange(_rectangle_Width, _rectangle_height, _frameWidth, _frameHeight) {
     return [-_rectangle_Width, -_rectangle_height,
         _frameWidth + _rectangle_Width,
-        _frameHeight + _rectangle_height];
+        _frameHeight + _rectangle_height
+    ];
 }
 
 ///Create Mondrian Canvas
 function CreateMondrian(_id, _className, _width, _height, _zIndex, _position,
-                        _border, _opacity) {
+    _border, _opacity) {
 
     let mondrian = document.createElement('canvas');
     mondrian.id = _id;
@@ -55,7 +56,7 @@ function CreateMondrian(_id, _className, _width, _height, _zIndex, _position,
 
 //Draw Mondrian
 function CreateMondrianContext(_id, _mondrian, _fillStyle, _x, _y, _frameWidth,
-                               _frameHeight) {
+    _frameHeight) {
     let ctx = _mondrian.getContext(_id);
     ctx.fillStyle = _fillStyle;
     ctx.fillRect(_x, _y, _frameWidth, _frameHeight);
@@ -64,14 +65,14 @@ function CreateMondrianContext(_id, _mondrian, _fillStyle, _x, _y, _frameWidth,
 
 //Fill Mondrian
 function FillRectangles(_rectNum, _mondrianContext, _colors, _rectangle_Width,
-                        _rectangle_Height,
-                        _frameWidth, _frameHeight) {
+    _rectangle_Height,
+    _frameWidth, _frameHeight) {
     const rectRange = GetRectanglesRange(_rectangle_Width, _rectangle_Height, _frameWidth,
         _frameHeight);
     for (let j = 0; j < _rectNum; j++) {
         _mondrianContext.fillStyle = _colors[Math.floor(Math.random() * _colors.length)];
         _mondrianContext.fillRect(Math.round(Math.random() *
-            (rectRange[2] - rectRange[0]) + rectRange[0]),
+                (rectRange[2] - rectRange[0]) + rectRange[0]),
             Math.round(Math.random() * (rectRange[3] - rectRange[1]) + rectRange[1]),
             _rectangle_Width + Math.round(Math.random()) * _rectangle_Width,
             _rectangle_Height + Math.round(Math.random()) * _rectangle_Height);
@@ -81,12 +82,13 @@ function FillRectangles(_rectNum, _mondrianContext, _colors, _rectangle_Width,
 function GetMondrianProfiles(max_flips) {
     return [
         [0, 1, stringSafe(4 / max_flips),
-            1, stringSafe(4 / max_flips + 0.00001), 0]
+            1, stringSafe(4 / max_flips + 0.00001), 0
+        ]
     ];
 }
 
 function CreateMondrianProfiles(max_flips, fade_out_flip, regularFlip, mondrian_max_opacity, Hz,
-                                fade_out_time, mondrian_count) {
+    fade_out_time, mondrian_count) {
     let x, x2;
     // Auxiliary variables
     let mondrian_profiles = GetMondrianProfiles(max_flips);
@@ -130,8 +132,8 @@ function CreateMondrianProfiles(max_flips, fade_out_flip, regularFlip, mondrian_
 
 //Draw stimulus
 function CreateStimulusContext(_id, stimulus, stimulus_vertical_flip, frameWidth, frameHeight, stimulus_width,
-                               stimulus_height, stimulus_side, trial_stimulus, start_trial, stimulus_delay,
-                               start_compute, fixationWidth) {
+    stimulus_height, stimulus_side, trial_stimulus, start_trial, stimulus_delay,
+    start_compute, fixationWidth) {
     let stimulus_canvas = document.getElementById("stimulus");
     let stimulus_context = stimulus_canvas.getContext(_id);
     if (stimulus_vertical_flip) {
@@ -153,9 +155,8 @@ function CreateStimulusContext(_id, stimulus, stimulus_vertical_flip, frameWidth
     let img = new Image();
 
     img.id = 'stimulusImg';
-    console.log(trial_stimulus);
     img.src = trial_stimulus;
-    img.onload = function () {
+    img.onload = function() {
         if (stimulus_side > 1) {
             stimulus_context.drawImage(img, 0, stimulus_location,
                 stimulus_width, stimulus_height);

@@ -1,4 +1,5 @@
 <html style="background: #C0C0C0;">
+
 <head>
     <title>Psychology Study</title>
     <meta charset="utf-8">
@@ -6,7 +7,7 @@
     <script src="libs/underscore-min.js" type="text/javascript"></script>
     <script src="rms.js" type="text/javascript"></script>
     <script src="jspsych.js" type="text/javascript"></script>
-    <script src="jspsych-brms.js" type="text/javascript"></script>
+    <script src="plugins/jspsych-brms.js" type="text/javascript"></script>
     <script src="plugins/jspsych-image-cpt.js" type="text/javascript"></script>
     <script src="plugins/jspsych-survey-likert.js" type="text/javascript"></script>
     <script src="plugins/jspsych-survey-multi-choice.js" type="text/javascript"></script>
@@ -17,7 +18,8 @@
     <script>
         // Shuffle list function
         function shuffle(array) {
-            let currentIndex = array.length,  randomIndex;
+            let currentIndex = array.length,
+                randomIndex;
 
             // While there remain elements to shuffle...
             while (currentIndex != 0) {
@@ -26,140 +28,121 @@
                 currentIndex--;
                 // And swap it with the current element.
                 [array[currentIndex], array[randomIndex]] = [
-                array[randomIndex], array[currentIndex]];
+                    array[randomIndex], array[currentIndex]
+                ];
             }
 
             return array;
         }
-        
+
         // Downlowd file function
         function download(filename, text) {
             let element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
             element.setAttribute('download', filename);
-          
+
             element.style.display = 'none';
             document.body.appendChild(element);
-          
+
             element.click();
-          
+
             document.body.removeChild(element);
         }
-    
+
         // Create survey trials
         function getSurveyTrials(survey_type, survey_name, questions, survey_direction, labels) {
             let survey_trials = [];
-            for (let i = 0; i < questions.length; i+=3) {
+            for (let i = 0; i < questions.length; i += 3) {
                 survey_trials.push({
-                    "questions": [
-                        {
-                            "labels": labels,
-                            "prompt": questions[i],
-                            "required":true
-                        },
-                        {
-                            "labels":labels,
-                            "prompt": questions[i + 1],
-                            "required":true
-                        },
-                        {
-                            "labels":labels,
-                            "prompt": questions[i + 2],
-                            "required":true
-                        }
-                    ],
-                    "type": survey_type,
-                    "direction": survey_direction,
-                    "name": survey_name + "_" + i
+                    questions: [{
+                        labels: labels,
+                        prompt: questions[i],
+                        required: true
+                    }, {
+                        labels: labels,
+                        prompt: questions[i + 1],
+                        required: true
+                    }, {
+                        labels: labels,
+                        prompt: questions[i + 2],
+                        required: true
+                    }],
+                    type: survey_type,
+                    direction: survey_direction,
+                    name: survey_name + "_" + i
                 });
             }
             return survey_trials;
         }
-        
+
         // Create start experiment trials
-        const start = [
-            {
-                "pages": [
+        const start = [{
+            pages: [
                 "השאלות וההוראות לניסוי מנוסחות בלשון נקבה, אך מתייחסות לשני המינים."
-                ],
-                "show_clickable_nav": true,
-                "type": "instructions",
-                "direction": "rtl",
-                "name": "gender_instructions"
-            },
-            {
-                "questions": [
-                {
-                    "options": ["גבר", "אישה", "אחר"],
-                    "prompt": "כיצד את מגדירה עצמך?",
-                    "required": true
-                },
-                {
-                    "options": ["ימין", "שמאל", "אחר"],
-                    "prompt": "מהי היד הדומיננטית שלך?",
-                    "required": true
-                },
-                {
-                    "options": ["עברית", "ערבית", "אנגלית", "אחר"],
-                    "prompt": "מהי שפת האם שלך?",
-                    "required": true
-                }
-                ],
-                "type": "survey-multi-choice",
-                "direction": "rtl",
-                "name": "question_start_1"
-            },
-            {
-                "questions": [
-                {
-                    "rows": 1.0,
-                    "columns": 2.0,
-                    "value": "",
-                    "prompt": "מהו גילך?",
-                    "required": true
-                }
-                ],
-                "type": "survey-text",
-                "direction": "rtl",
-                "name": "age_q"
-            },
-            {
-                "questions": [
-                {
-                    "options": ["כן", "לא"],
-                    "prompt": "האם אובחנת בעבר כלוקה בהפרעת קשב?",
-                    "required": true
-                }
-                ],
-                "type": "survey-multi-choice",
-                "direction": "rtl",
-                "name": "attention_1"
-            },
-            {
-                "questions": [
-                {
-                    "labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-                    "prompt": "במידה ולא, מ-1 עד 9 עד כמה את חשה שיש לך הפרעת קשב?",
-                    "required": true
-                }
-                ],
-                "type": "survey-likert",
-                "direction": "rtl",
-                "name": "attention_2"
-            }
-        ];
+            ],
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "gender_instructions"
+        }, {
+            questions: [{
+                options: ["גבר", "אישה", "אחר"],
+                prompt: "כיצד את מגדירה עצמך?",
+                required: true
+            }, {
+                options: ["ימין", "שמאל", "אחר"],
+                prompt: "מהי היד הדומיננטית שלך?",
+                required: true
+            }, {
+                options: ["עברית", "ערבית", "אנגלית", "אחר"],
+                prompt: "מהי שפת האם שלך?",
+                required: true
+            }],
+            type: "survey-multi-choice",
+            direction: "rtl",
+            name: "question_start_1"
+        }, {
+            questions: [{
+                rows: 1.0,
+                columns: 2.0,
+                value: "",
+                prompt: "מהו גילך?",
+                required: true
+            }],
+            type: "survey-text",
+            direction: "rtl",
+            name: "age_q"
+        }, {
+            questions: [{
+                options: ["כן", "לא"],
+                prompt: "האם אובחנת בעבר כלוקה בהפרעת קשב?",
+                required: true
+            }],
+            type: "survey-multi-choice",
+            direction: "rtl",
+            name: "attention_1"
+        }, {
+            questions: [{
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                prompt: "במידה ולא, מ-1 עד 9 עד כמה את חשה שיש לך הפרעת קשב?",
+                required: true
+            }],
+            type: "survey-likert",
+            direction: "rtl",
+            name: "attention_2"
+        }];
 
         // Create ASRS instructions
         const asrs_instructions = {
-            "pages": [
+            pages: [
                 "עבור כל אחד מהמצבים המתוארים בהיגדים הבאים, אנא סמני עד כמה זה מאפיין אותך<br>השתמשי בסולם הדירוג שלפניך הנע בין \"אף פעם לא\" לבין \"לעיתים תכופות מאד\""
             ],
-            "show_clickable_nav": true,
-            "type": "instructions",
-            "direction": "rtl",
-            "name": "intro_asrs"
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "intro_asrs"
         };
-        
+
         // Create ASRS survey trials
         function createAsrsTrials() {
             const asrsQuestions = [
@@ -189,21 +172,21 @@
                 "לפעמים",
                 "לעיתים קרובות",
                 "לעיתים תכופות מאוד"
-          ]
-        
+            ]
+
             return getSurveyTrials("survey-likert", "ASRS", asrsQuestions, "rtl", asrsLabels);
         }
-        
+
         // Barrat instructions
         const barratt_instructions = {
-                "pages":[
-                    "עבור כל אחד מהמצבים המתוארים בהיגדים הבאים, אנא סמני עד כמה זה מאפיין אותך<br>השתמשי בסולם הדירוג שלפניך הנע בין לעתים רחוקות לבין כמעט תמיד"
-                ],
-                "show_clickable_nav":true,
-                "type":"instructions",
-                "direction":"rtl",
-                "name":"instructions"
-            }
+            pages: [
+                "עבור כל אחד מהמצבים המתוארים בהיגדים הבאים, אנא סמני עד כמה זה מאפיין אותך<br>השתמשי בסולם הדירוג שלפניך הנע בין לעתים רחוקות לבין כמעט תמיד"
+            ],
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "instructions"
+        }
 
         // Create barrat scale array
         function createBarratScale() {
@@ -211,6 +194,7 @@
                 "אני מתכננת משימות בקפידה.",
                 "אני עושה דברים בלי לחשוב.",
                 "אני מחליטה מהר.",
+                "איני מפנה תשומת לב",
                 "אני ברת מזל.",
                 "המחשבות שלי מתרוצצות.",
                 "אני מתכננת טיולים הרבה לפני הזמן.",
@@ -237,8 +221,9 @@
                 "אני חסרת מנוחה בהצגות או הרצאות.",
                 "אני אוהבת פאזלים.",
                 "המחשבה שלי מכוונת לעתיד."
+
             ]
-        
+
             const barrattLabels = [
                 "לעולם לא \ לעיתים רחוקות",
                 "באופן ממוצע",
@@ -247,37 +232,37 @@
             ];
 
             return getSurveyTrials("survey-likert", "Barratt", barrattQuestions, "rtl", barrattLabels);
-            
+
         }
 
         // Create RMS trials instructions
         const rms_instructions = {
-            "pages":[
+            pages: [
                 "בניסוי זה יוצגו ריבועים צבעוניים מרצדים, ומדי פעם יופיעו עליהם גירויים שונים. מטרתך היא לזהות היכן מופיע גירוי – האם מימין או משמאל לנקודה בה את מתמקדת במסך.",
                 "קצב הופעת הגירויים בניסוי מאוד משתנה. לפעמים הגירויים יופיעו במהירות בזה אחר זה, ולפעמים ייקח להם זמן. ",
                 "חשוב לנו מאוד לדעת מתי בדיוק התחילו להופיע הגירויים. לכן נבקש ממך למקד את המבט בצלב שבמרכז המסך, וללחוץ על מקש התשובה ברגע שאת יודעת את התשובה. אנא היי הכי מדוייקת והכי מהירה שאת יכולה להיות. ",
                 "אם ראית גירוי משמאל מרכז המסך, יש ללחוץ על המקש Q אם ראית גירוי מימין למרכז המסך, יש ללחוץ על המקש P.",
                 "כעת נעשה אימון קצר למטלה כדי לוודא שההוראות מובנות, במידה וישנן שאלות את מוזמנת לפנות לנסיין"
             ],
-            "show_clickable_nav":true,
-            "type":"instructions",
-            "direction":"rtl",
-            "name":"rms_instructions"
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "rms_instructions"
         };
 
         // Create RMS main trials instuctions
         const rms_main_instructions = {
-            "pages":[
+            pages: [
                 "כעת נתחיל את המטלה. נבקשך לשבת בנוחות ככל האפשר ולמקם את האצבעות על שני המקשים P-ו Q. כשאת מוכנה, הקישי המשך."
             ],
-            "show_clickable_nav":true,
-            "type":"instructions",
-            "direction":"rtl",
-            "name":"intro_2"
-        };    
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "rms_main_instructions"
+        };
 
         // Create RMS trials
-        function getRmsTrials(baseFileName, images, fileExtention, choices) {
+        function getRmsTrials(baseFileName, images, fileExtention, choices, block) {
             rms_trials = []
             shuffle(images).forEach(element => {
                 rms_trials.push({
@@ -286,34 +271,35 @@
                     choices: choices,
                     response_ends_trial: true,
                     post_trial_gap: 400,
-                    stimulus_opacity: 0.3
+                    stimulus_opacity: 0.3,
+                    stimulus_block: block
                 });
             });
 
             return rms_trials;
         }
-        
+
         // CPT instructions
         const cpt_instructions = {
-            "pages":[
+            pages: [
                 "בחלק הבא, יוצגו על המסך צורות שונות בצבעים שונים. עלייך ללחוץ על מקש הרווח אך ורק כשתראי ריבוע אדום",
                 "כעת נעשה אימון קצר למטלה כדי לוודא שההוראות מובנות, במידה וישנן שאלות את מוזמנת לפנות לנסיין"
             ],
-            "show_clickable_nav":true,
-            "type":"instructions",
-            "direction":"rtl",
-            "name":"cpt_instructions_1"
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "cpt_instructions_1"
         }
 
         // CPT aftar practice instractions
         const cpt_main_instructions = {
-            "pages":[
+            pages: [
                 "כעת נתחיל את המטלה. נבקשך לשבת בנוחות ככל האפשר ולמקם את ידך על מקש הרווח. כשאת מוכנה, הקישי המשך."
             ],
-            "show_clickable_nav":true,
-            "type":"instructions",
-            "direction":"rtl",
-            "name":"instructions_2"
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "instructions_2"
         }
 
         // Create CPT trials
@@ -327,17 +313,17 @@
             const otherColors = ["yellow", "green", "blue"];
 
             const cpt_main_instructions = {
-                "pages":[
+                pages: [
                     "כעת נתחיל את המטלה. נבקשך לשבת בנוחות ככל האפשר ולמקם את ידך על מקש הרווח. כשאת מוכנה, הקישי המשך."
                 ],
-                "show_clickable_nav":true,
-                "type":"instructions",
-                "direction":"rtl",
-                "name":"instructions_2"
+                show_clickable_nav: true,
+                type: "instructions",
+                direction: "rtl",
+                name: "instructions_2"
             }
 
             let gaps = [];
-            for(let i = 0; i < trialCount / 4; i++) {
+            for (let i = 0; i < trialCount / 4; i++) {
                 cptGaps.forEach(element => {
                     gaps.push(element);
                 });
@@ -346,7 +332,7 @@
             gaps = shuffle(gaps);
 
             cpt_trials = [];
-            for (let i =0; i < cptCount; i++) {
+            for (let i = 0; i < cptCount; i++) {
                 cpt_trials.push({
                     type: "image-cpt",
                     stimulus: "images/cpt/" + stimulusShape + "_" + stimulusColor + ".png",
@@ -360,12 +346,12 @@
                     validate: ifValidate
                 });
             }
-            
-            for (let i = 0; i < (otherCount / 3); i++) { 
+
+            for (let i = 0; i < (otherCount / 3); i++) {
                 otherShapes.forEach(currentShape => {
                     cpt_trials.push({
                         type: "image-cpt",
-                        stimulus: "images/cpt/" + currentShape +"_" + stimulusColor + ".png",
+                        stimulus: "images/cpt/" + currentShape + "_" + stimulusColor + ".png",
                         validationCorrect: "images/validations/correct.png",
                         validationIncorrect: "images/validations/incorrect.png",
                         isStimulus: false,
@@ -375,14 +361,14 @@
                         choices: [32],
                         validate: ifValidate
                     });
-                });    
+                });
             }
 
-            for (let i = 0; i < (otherCount / 3); i++) { 
+            for (let i = 0; i < (otherCount / 3); i++) {
                 otherColors.forEach(currentColor => {
                     cpt_trials.push({
                         type: "image-cpt",
-                        stimulus: "images/cpt/" + stimulusShape +"_" + currentColor + ".png",
+                        stimulus: "images/cpt/" + stimulusShape + "_" + currentColor + ".png",
                         validationCorrect: "images/validations/correct.png",
                         validationIncorrect: "images/validations/incorrect.png",
                         isStimulus: false,
@@ -392,9 +378,9 @@
                         choices: [32],
                         validate: ifValidate
                     });
-                });    
+                });
             }
-        
+
             let count = trialCount - ((2 * otherCount) - cptCount);
             for (let i = 0; i < (otherShapes.length / 3); i++) {
                 for (let j = 0; j < (otherColors.length / 3); j++) {
@@ -418,161 +404,132 @@
                 if (count == 0) {
                     break;
                 }
-            }           
-        
+            }
+
             return cpt_trials;
         }
 
         // Create end experimnt trials
-        const end = [
-            {
-               "questions":[
-                    {
-                        "labels":[
-                            "1",
-                            "2",
-                            "3",
-                            "4",
-                            "5"
-                        ],
-                        "prompt":"מ-1 עד-5, עד כמה הייתה ברורה לך המטלה עם הריבועים המרצדים?",
-                        "required":true
-                        }
-                    ],
-                "type":"survey-likert",
-                "direction":"rtl",
-                "name":"LAST_1"
-            },
-            {
-                "questions":[
-                    {
-                        "options":[
-                            "כן",
-                            "לא"
-                        ],
-                        "prompt":"האם הייתה לך איזושהי אסטרטגיה?",
-                        "required":true
-                        }
-                    ],
-                "type":"survey-multi-choice",
-                "direction":"rtl",
-                "name":"LAST_2"
-            },
-            {
-                "questions":[
-                    {
-                        "rows":7.0,
-                        "columns":7.0,
-                        "value":"",
-                        "prompt":"אם כן, מהי?",
-                        "required":true
-                    }
+        const end = [{
+            questions: [{
+                labels: [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
                 ],
-                "type":"survey-text",
-                "name":"LAST_3"
-            },
-            {
-                "questions":[
-                    {
-                    "labels":[
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5"
-                    ],
-                    "prompt":"מ-1 עד-5, עד כמה הייתה ברורה לך המטלה בה היית צריכה להקיש למראה ריבוע אדום?",
-                        "required":true
-                    }
+                prompt: "מ-1 עד-5, עד כמה הייתה ברורה לך המטלה עם הריבועים המרצדים?",
+                required: true
+            }],
+            type: "survey-likert",
+            direction: "rtl",
+            name: "LAST_1"
+        }, {
+            questions: [{
+                options: [
+                    "כן",
+                    "לא"
                 ],
-                "type":"survey-likert",
-                "direction":"rtl",
-                "name":"LAST_4"
-            },
-            {
-                "questions":[
-                    {
-                        "options":[
-                            "כן",
-                            "לא"
-                        ],
-                        "prompt":"האם הייתה לך איזושהי אסטרטגיה?",
-                        "required":true
-                        }
-                    ],
-                "type":"survey-multi-choice",
-                "direction":"rtl",
-                "name":"LAST_5"
-                },
-                {
-                    "questions":[
-                        {
-                           "rows":7.0,
-                            "columns":7.0,
-                            "value":"",
-                            "prompt":"אם כן, מהי?",
-                            "required":true
-                        }
-                    ],
-                    "type":"survey-text",
-                    "name":"LAST_6"
-                },
-                {
-                    "questions":[
-                        {
-                          "labels":[
-                                "1",
-                                "2",
-                                "3",
-                                "4",
-                                "5",
-                                "6",
-                                "7"
-                            ],
-                            "prompt":"בהשוואה לנהגת הממוצעת, כיצד היית מגדירה את הנהיגה שלך? כך ש-1 אומר הרבה מתחת לממוצע ו-7 אומר הרבה מעבר לממוצע?",
-                            "required":false
-                        }
-                    ],
-                    "type":"survey-likert",
-                    "direction":"rtl",
-                    "name":"DRIVE_1"
-                },
-                {
-                    "questions":[
-                        {
-                           "rows":2.0,
-                            "columns":1.0,
-                            "value":"",
-                            "prompt":"להערכתך, בכמה תאונות דרכים היית מעורבת <bold> כנהגת </bold> במהלך שלושת השנים האחרונות כולל תאונות קטנות וללא נזק",
-                            "required":false
-                        }
-                    ],
-                    "type":"survey-text",
-                    "name":"DRIVE_2"
-                },
-                {
-                    "questions":[
-                        {
-                            "rows":2.0,
-                            "columns":1.0,
-                            "value":"",
-                            "prompt":"להערכתך, בכמה תאונות דרכים היית מעורבת <bold> כהולכת רגל </bold> במהלך שלושת השנים האחרונות כולל תאונות קטנות וללא נזק",
-                            "required":true
-                        }
-                    ],
-                    "type":"survey-text",
-                    "name":"WALK"
-                },
-                {
-                "pages": [
+                prompt: "האם הייתה לך איזושהי אסטרטגיה?",
+                required: true
+            }],
+            type: "survey-multi-choice",
+            direction: "rtl",
+            name: "LAST_2"
+        }, {
+            questions: [{
+                rows: 7.0,
+                columns: 7.0,
+                value: "",
+                prompt: "אם כן, מהי?",
+                required: true
+            }],
+            type: "survey-text",
+            name: "LAST_3"
+        }, {
+            questions: [{
+                labels: [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                ],
+                prompt: "מ-1 עד-5, עד כמה הייתה ברורה לך המטלה בה היית צריכה להקיש למראה ריבוע אדום?",
+                required: true
+            }],
+            type: "survey-likert",
+            direction: "rtl",
+            name: "LAST_4"
+        }, {
+            questions: [{
+                options: [
+                    "כן",
+                    "לא"
+                ],
+                prompt: "האם הייתה לך איזושהי אסטרטגיה?",
+                required: true
+            }],
+            type: "survey-multi-choice",
+            direction: "rtl",
+            name: "LAST_5"
+        }, {
+            questions: [{
+                rows: 7.0,
+                columns: 7.0,
+                value: "",
+                prompt: "אם כן, מהי?",
+                required: true
+            }],
+            type: "survey-text",
+            name: "LAST_6"
+        }, {
+            questions: [{
+                labels: [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7"
+                ],
+                prompt: "בהשוואה לנהגת הממוצעת, כיצד היית מגדירה את הנהיגה שלך? כך ש-1 אומר הרבה מתחת לממוצע ו-7 אומר הרבה מעבר לממוצע?",
+                required: false
+            }],
+            type: "survey-likert",
+            direction: "rtl",
+            name: "DRIVE_1"
+        }, {
+            questions: [{
+                rows: 2.0,
+                columns: 1.0,
+                value: "",
+                prompt: "להערכתך, בכמה תאונות דרכים היית מעורבת <bold> כנהגת </bold> במהלך שלושת השנים האחרונות כולל תאונות קטנות וללא נזק",
+                required: false
+            }],
+            type: "survey-text",
+            name: "DRIVE_2"
+        }, {
+            questions: [{
+                rows: 2.0,
+                columns: 1.0,
+                value: "",
+                prompt: "להערכתך, בכמה תאונות דרכים היית מעורבת <bold> כהולכת רגל </bold> במהלך שלושת השנים האחרונות כולל תאונות קטנות וללא נזק",
+                required: true
+            }],
+            type: "survey-text",
+            name: "WALK"
+        }, {
+            pages: [
                 "תודה שהשתתפת בניסוי, לחצי על המשך לסיום הניסוי."
-                ],
-                "show_clickable_nav": true,
-                "type": "instructions",
-                "direction": "rtl",
-                "name": "end_instructions"
-            }
-            ];   
+            ],
+            show_clickable_nav: true,
+            type: "instructions",
+            direction: "rtl",
+            name: "end_instructions"
+        }];
 
         // create CPT timeline
         let cptTimeline = []
@@ -584,13 +541,15 @@
         shuffle(createCpt(97, 56, 320, false)).forEach(function(trial) {
             cptTimeline.push(trial);
         });
-        
-        // Add RMS to timeline
+
+        // Create RMS timeline
         const baseFileName = "images/rms/f42887_e_";
-        const imagesPractice = ["001", "001","001","001","001","001","001","001", "001","001"];
+        const imagesPractice = ["001", "001", "001", "001", "001", "001", "001", "001", "001", "001"];
         const imagesMain = [
             "001", "005", "015", "025", "028", "053", "058", "064", "072", "080", "098", "103", "121", "127", "140", "156",
-            "161", "180", "202", "241", "245", "252", "258", "259", "278", "289", "293", "295", "296", "297", "298", 
+            "161", "180", "202", "241", "245", "252", "258", "259", "278", "289", "293", "295", "296", "297", "298"
+        ];
+        const imagesMainReversed = [
             "001_1", "005_1", "015_1", "025_1", "028_1", "053_1", "058_1", "064_1", "072_1", "080_1", "098_1", "103_1", "121_1", "127_1", "140_1", "156_1",
             "161_1", "180_1", "202_1", "241_1", "245_1", "252_1", "258_1", "259_1", "278_1", "289_1", "293_1", "295_1", "296_1", "297_1", "298_1"
         ];
@@ -598,68 +557,54 @@
         const choices = ["q", "p"]
         let rmsTimeline = []
         rmsTimeline.push(rms_instructions);
-        shuffle(getRmsTrials(baseFileName, imagesPractice, fileExtension, choices)).forEach(function(trial) {
+        trainingRmsTrials = getRmsTrials(baseFileName, imagesPractice, fileExtension, choices, "training");
+        shuffle(trainingRmsTrials).forEach(function(trial) {
             rmsTimeline.push(trial);
         });
         rmsTimeline.push(rms_main_instructions);
-        shuffle(getRmsTrials(baseFileName, imagesMain, fileExtension, choices)).forEach(function(trial) {
+        allMainRmsTrials = getRmsTrials(baseFileName, imagesMain, fileExtension, choices, "main").concat(getRmsTrials(baseFileName, imagesMainReversed, fileExtension, choices, "reversed"));
+        shuffle(allMainRmsTrials).forEach(function(trial) {
             rmsTimeline.push(trial);
-        });
-
-        // Add ASRS to timeline
-        asrsTimeline = []
-        asrsTimeline.push(asrs_instructions);
-        shuffle(createAsrsTrials()).forEach(function(trial) {
-            asrsTimeline.push(trial);
-        });
-
-        //Add Barratt to timeline
-        barrattTimeline = []
-        barrattTimeline.push(barratt_instructions);
-        shuffle(createBarratScale()).forEach(function(trial) {
-            barrattTimeline.push(trial);
         });
 
         // The final timeline for the experiment
         let experiment_timeline = []
-        
-        // Add ASRS to timeline
-        asrsTimeline = []
-        asrsTimeline.push(asrs_instructions);
-        shuffle(createAsrsTrials()).forEach(function(trial) {
-            asrsTimeline.push(trial);
-        });
-
-        // Add Barratt to timeline
-        barrattTimeline = []
-        barrattTimeline.push(barratt_instructions);
-        shuffle(createBarratScale()).forEach(function(trial) {
-            barrattTimeline.push(trial);
-        });
 
         // Add start to timeline
         start.forEach(function(element) {
             experiment_timeline.push(element);
         });
-        
-        const mainParts = [cptTimeline, rmsTimeline, asrsTimeline, barrattTimeline];
+
         // Add main parts to timeline in random order
-        shuffle(mainParts).forEach(function(part) {
+        shuffle([cptTimeline, rmsTimeline]).forEach(function(part) {
             part.forEach(function(element) {
                 experiment_timeline.push(element);
             });
         });
 
+        // Add ASRS to timeline
+        experiment_timeline.push(asrs_instructions);
+        shuffle(createAsrsTrials()).forEach(function(trial) {
+            experiment_timeline.push(trial);
+        });
+
+        // Add Barratt to timeline
+        experiment_timeline.push(barratt_instructions);
+        shuffle(createBarratScale()).forEach(function(trial) {
+            experiment_timeline.push(trial);
+        });
+
+
         // Add end to timeline
         end.forEach(function(trial) {
             experiment_timeline.push(trial);
         });
-        
+
         // Init experiment (and run it)
         jsPsych.init({
             timeline: experiment_timeline,
             fullscreen: true,
-            on_finish: function () {
+            on_finish: function() {
                 // Download subject data as .csv file
                 download("data.csv", jsPsych.data.get().csv());
             }
