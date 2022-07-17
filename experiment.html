@@ -1,4 +1,5 @@
-<html style="background: #C0C0C0;">
+<!DOCTYPE html>
+<html lang="en" style="background: #C0C0C0;height: 100%;">
 
 <head>
     <title>Psychology Study</title>
@@ -7,7 +8,7 @@
     <script src="libs/underscore-min.js" type="text/javascript"></script>
     <script src="rms.js" type="text/javascript"></script>
     <script src="jspsych.js" type="text/javascript"></script>
-    <script src="plugins/jspsych-brms.js" type="text/javascript"></script>
+    <script src="jspsych-brms.js" type="text/javascript"></script>
     <script src="plugins/jspsych-image-cpt.js" type="text/javascript"></script>
     <script src="plugins/jspsych-survey-likert.js" type="text/javascript"></script>
     <script src="plugins/jspsych-survey-multi-choice.js" type="text/javascript"></script>
@@ -49,7 +50,7 @@
             document.body.removeChild(element);
         }
 
-        // Create survey trials
+        // Create survey trials add 3 quesions in each trial 
         function getSurveyTrials(survey_type, survey_name, questions, survey_direction, labels) {
             let survey_trials = [];
             for (let i = 0; i < questions.length; i += 3) {
@@ -75,7 +76,7 @@
             return survey_trials;
         }
 
-        // Create start experiment trials
+        // Create start experiment trials, surveys and instructions
         const start = [{
             pages: [
                 "השאלות וההוראות לניסוי מנוסחות בלשון נקבה, אך מתייחסות לשני המינים."
@@ -262,12 +263,13 @@
         };
 
         // Create RMS trials
-        function getRmsTrials(baseFileName, images, fileExtention, choices, block) {
+        function getRmsTrials(images, choices, block) {
             rms_trials = []
+                // For each image create RMS trial
             shuffle(images).forEach(element => {
                 rms_trials.push({
                     type: "bRMS",
-                    stimulus: baseFileName + element + fileExtension,
+                    stimulus: element,
                     choices: choices,
                     response_ends_trial: true,
                     post_trial_gap: 400,
@@ -533,36 +535,73 @@
 
         // create CPT timeline
         let cptTimeline = []
+            // Add cpt practice instructions
         cptTimeline.push(cpt_instructions);
+        // Create CPT trials (practice) and add to timeline
         shuffle(createCpt(10, 6, 32, true)).forEach(function(trial) {
             cptTimeline.push(trial);
         });
+        // Add cpt main instructions
         cptTimeline.push(cpt_main_instructions)
+            // Create CPT trials (main) and add to timeline
         shuffle(createCpt(97, 56, 320, false)).forEach(function(trial) {
             cptTimeline.push(trial);
         });
 
         // Create RMS timeline
-        const baseFileName = "images/rms/f42887_e_";
-        const imagesPractice = ["001", "001", "001", "001", "001", "001", "001", "001", "001", "001"];
+
+        //All Practice stimulus
+        const imagesPractice = ["images/rms/f42887_e_001.jpg",
+            "images/rms/f42887_e_001.jpg", "images/rms/f42887_e_001.jpg", "images/rms/f42887_e_001.jpg",
+            "images/rms/f42887_e_001.jpg", "images/rms/f42887_e_001.jpg", "images/rms/f42887_e_001.jpg",
+            "images/rms/f42887_e_001.jpg", "images/rms/f42887_e_001.jpg", "images/rms/f42887_e_001.jpg"
+        ];
+        // All main task stimulus, not reverted
         const imagesMain = [
-            "001", "005", "015", "025", "028", "053", "058", "064", "072", "080", "098", "103", "121", "127", "140", "156",
-            "161", "180", "202", "241", "245", "252", "258", "259", "278", "289", "293", "295", "296", "297", "298"
+            "images/rms/f42887_e_001.jpg", "images/rms/f42887_e_005.jpg", "images/rms/f42887_e_015.jpg",
+            "images/rms/f42887_e_025.jpg", "images/rms/f42887_e_028.jpg", "images/rms/f42887_e_053.jpg",
+            "images/rms/f42887_e_058.jpg", "images/rms/f42887_e_064.jpg", "images/rms/f42887_e_072.jpg",
+            "images/rms/f42887_e_080.jpg", "images/rms/f42887_e_098.jpg", "images/rms/f42887_e_103.jpg",
+            "images/rms/f42887_e_121.jpg", "images/rms/f42887_e_127.jpg", "images/rms/f42887_e_140.jpg",
+            "images/rms/f42887_e_156.jpg", "images/rms/f42887_e_161.jpg", "images/rms/f42887_e_180.jpg",
+            "images/rms/f42887_e_202.jpg", "images/rms/f42887_e_241.jpg", "images/rms/f42887_e_245.jpg",
+            "images/rms/f42887_e_252.jpg", "images/rms/f42887_e_258.jpg", "images/rms/f42887_e_259.jpg",
+            "images/rms/f42887_e_278.jpg", "images/rms/f42887_e_289.jpg", "images/rms/f42887_e_293.jpg",
+            "images/rms/f42887_e_295.jpg", "images/rms/f42887_e_296.jpg", "images/rms/f42887_e_297.jpg",
+            "images/rms/f42887_e_298.jpg"
         ];
+        // All main task stimulus, reverted
         const imagesMainReversed = [
-            "001_1", "005_1", "015_1", "025_1", "028_1", "053_1", "058_1", "064_1", "072_1", "080_1", "098_1", "103_1", "121_1", "127_1", "140_1", "156_1",
-            "161_1", "180_1", "202_1", "241_1", "245_1", "252_1", "258_1", "259_1", "278_1", "289_1", "293_1", "295_1", "296_1", "297_1", "298_1"
+            "images/rms/f42887_e_001_1.jpg", "images/rms/f42887_e_005_1.jpg", "images/rms/f42887_e_015_1.jpg",
+            "images/rms/f42887_e_025_1.jpg", "images/rms/f42887_e_028_1.jpg", "images/rms/f42887_e_053_1.jpg",
+            "images/rms/f42887_e_058_1.jpg", "images/rms/f42887_e_064_1.jpg", "images/rms/f42887_e_072_1.jpg",
+            "images/rms/f42887_e_080_1.jpg", "images/rms/f42887_e_098_1.jpg", "images/rms/f42887_e_103_1.jpg",
+            "images/rms/f42887_e_121_1.jpg", "images/rms/f42887_e_127_1.jpg", "images/rms/f42887_e_140_1.jpg",
+            "images/rms/f42887_e_156_1.jpg", "images/rms/f42887_e_161_1.jpg", "images/rms/f42887_e_180_1.jpg",
+            "images/rms/f42887_e_202_1.jpg", "images/rms/f42887_e_241_1.jpg", "images/rms/f42887_e_245_1.jpg",
+            "images/rms/f42887_e_252_1.jpg", "images/rms/f42887_e_258_1.jpg", "images/rms/f42887_e_259_1.jpg",
+            "images/rms/f42887_e_278_1.jpg", "images/rms/f42887_e_289_1.jpg", "images/rms/f42887_e_293_1.jpg",
+            "images/rms/f42887_e_295_1.jpg", "images/rms/f42887_e_296_1.jpg", "images/rms/f42887_e_297_1.jpg",
+            "images/rms/f42887_e_298_1.jpg"
         ];
-        const fileExtension = ".jpg";
-        const choices = ["q", "p"]
-        let rmsTimeline = []
+
+        // Choices for RMS trials (q for left and p for right)
+        const choices = ["q", "p"];
+        // Create RMS timeline
+        let rmsTimeline = [];
+        // Add Rms instructions
         rmsTimeline.push(rms_instructions);
-        trainingRmsTrials = getRmsTrials(baseFileName, imagesPractice, fileExtension, choices, "training");
+        // Create all RMS practice trials
+        trainingRmsTrials = getRmsTrials(imagesPractice, choices, "training");
+        // Add all practice trials to RMS timeline in random order (using shuffle function)
         shuffle(trainingRmsTrials).forEach(function(trial) {
             rmsTimeline.push(trial);
         });
+        // Add RMS instuctions (for main trials)
         rmsTimeline.push(rms_main_instructions);
-        allMainRmsTrials = getRmsTrials(baseFileName, imagesMain, fileExtension, choices, "main").concat(getRmsTrials(baseFileName, imagesMainReversed, fileExtension, choices, "reversed"));
+        // Create all RMS main trials (reverted and not reverted together)
+        allMainRmsTrials = getRmsTrials(imagesMain, choices, "main").concat(getRmsTrials(imagesMainReversed, choices, "reversed"));
+        // Add all main trials to RMS timeline in random order (using shuffle function)
         shuffle(allMainRmsTrials).forEach(function(trial) {
             rmsTimeline.push(trial);
         });
@@ -575,27 +614,27 @@
             experiment_timeline.push(element);
         });
 
-        // Add main parts to timeline in random order
+        // Add main parts to timeline in random order (using shuffle function)
         shuffle([cptTimeline, rmsTimeline]).forEach(function(part) {
             part.forEach(function(element) {
                 experiment_timeline.push(element);
             });
         });
 
-        // Add ASRS to timeline
+        // Add ASRS to timeline in random order (using shuffle function)
         experiment_timeline.push(asrs_instructions);
         shuffle(createAsrsTrials()).forEach(function(trial) {
             experiment_timeline.push(trial);
         });
 
-        // Add Barratt to timeline
+        // Add Barratt to timeline in random order (using shuffle function)
         experiment_timeline.push(barratt_instructions);
         shuffle(createBarratScale()).forEach(function(trial) {
             experiment_timeline.push(trial);
         });
 
 
-        // Add end to timeline
+        // Add end to timeline 
         end.forEach(function(trial) {
             experiment_timeline.push(trial);
         });
